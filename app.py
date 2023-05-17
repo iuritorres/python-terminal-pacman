@@ -1,3 +1,4 @@
+import winsound
 import time
 import os
 
@@ -8,7 +9,7 @@ if __name__ == '__main__':
     pac_iterator = 0
 
     while len(fruits_pos) != 0:
-        display_pac('o') if (pac_iterator % 2 == 0) else display_pac('O')
+        display_pac('🥴') if (pac_iterator % 2 == 0) else display_pac('🥴')
         pac_iterator += 1
 
         os.system('cls')
@@ -16,24 +17,31 @@ if __name__ == '__main__':
         time.sleep(0.2)
 
         # up and down
-        next_fruit = utils.closest_fruit(fruits_pos)
+        next_fruit = utils.closest_fruit([], fruits_pos)
 
+        # get closest axis
+        diff_x = pacman_pos[0] - next_fruit[0]
+        diff_y = pacman_pos[1] - next_fruit[1]
+
+        # move pacman
         if pacman_pos != next_fruit:
-            # lines
-            if pacman_pos[0] != next_fruit[0]:
-                if pacman_pos[0] < next_fruit[0]:
-                    pacman_pos[0] += 1
+                # lines
+                if pacman_pos[0] != next_fruit[0]:
+                    if pacman_pos[0] < next_fruit[0]:
+                        pacman_pos[0] += 1
 
-                else:
-                    pacman_pos[0] -= 1
+                    else:
+                        pacman_pos[0] -= 1
 
-            # columns
-            if pacman_pos[1] != next_fruit[1]:
-                if pacman_pos[1] < next_fruit[1]:
-                    pacman_pos[1] += 1
+                # columns
+                if pacman_pos[1] != next_fruit[1]:
+                    if pacman_pos[1] < next_fruit[1]:
+                        pacman_pos[1] += 1
 
-                else:
-                    pacman_pos[1] -= 1
+                    else:
+                        pacman_pos[1] -= 1
 
         else:
             fruits_pos.remove(next_fruit)
+            winsound.Beep(1500, 10)
+            winsound.Beep(2000, 10)

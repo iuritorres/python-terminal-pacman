@@ -1,13 +1,8 @@
-import math
 import random
 
 # delete unnecessary chars in list
 def format_line(list: list) -> str:
-    remove_chars = ['[', ']', "'", ',']
-    new_list = str(list)
-
-    for char in remove_chars:
-        new_list = new_list.replace(char, '')
+    new_list = ' '.join(list)
 
     return new_list
 
@@ -19,29 +14,6 @@ def generate_fruit(matrix: list) -> list:
     return [lineIndex, columnIndex]
 
 # search the closest fruit
-def closest_fruit(fruits_pos: list) -> list:
-    next_pos = []
-
-    # closest_axis = min(next_fruit)
-    # axis = next_fruit.index(closest_axis)
-
-    # get closest line
-    for pos in fruits_pos:
-        next_pos.append(pos[0])
-
-    closest_line = min(next_pos)
-
-    # reset next_pos list
-    next_pos.clear()
-
-    # get closest column
-    for pos in fruits_pos:
-        if pos[0] == closest_line:
-            next_pos.append(pos[1])
-
-    closest_column = min(next_pos)
-
-    return [closest_line, closest_column]
-
-# pos = [[4, 11], [6, 13], [1, 6]]
-# print(closest_fruit(pos))
+# ela pega o proximo baseado na matriz como um todo e nao baseado no pacman
+def closest_fruit(pac_pos: list, fruits_pos: list) -> list:
+    return min(fruits_pos)

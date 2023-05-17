@@ -1,5 +1,4 @@
 import keyboard
-
 import utils
 
 
@@ -7,7 +6,7 @@ import utils
 fruits_pos = []
 pacman_pos = [0, 0]
 
-matrix = [['.' for space in range(15)] for line in range(10)]
+matrix = [['⚫' for space in range(10)] for line in range(10)]
 
 
 # display the map in terminal, with a 10x15 default matrix
@@ -20,8 +19,8 @@ def display_pac(size: str, new_pos: list = pacman_pos) -> None:
     # find pacman last pos and replace '.'
     for lineIndex, line in enumerate(matrix):
         for columnIndex, column in enumerate(line):
-            if column == 'o' or column == 'O':
-                matrix[lineIndex][columnIndex] = '.'
+            if column == '🥴' or column == '🥴':
+                matrix[lineIndex][columnIndex] = '⚫'
 
     # (lines) if pos > map_size, go to start
     if new_pos[0] < 0:
@@ -46,4 +45,5 @@ for i in range(11):
     pos = utils.generate_fruit(matrix)
     fruits_pos.append(pos)
 
-    matrix[pos[0]][pos[1]] = 'X'
+    # matrix[pos[0]][pos[1]] = '♫'
+    matrix[pos[0]][pos[1]] = '🍺'
