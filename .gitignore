@@ -1,6 +1,2 @@
-# vscode
-.vscode/
-
-# python
-__pycache__/
 venv/
+__pycache__/
