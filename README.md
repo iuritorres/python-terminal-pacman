@@ -6,10 +6,6 @@
 - Open your terminal in project root and type:
 
 ```cmd
-python -m venv .venv
-.\.venv\Scripts\activate (Windows)
-pip install -r .\requirements.txt
-
 python src/game.py
 ```
 
