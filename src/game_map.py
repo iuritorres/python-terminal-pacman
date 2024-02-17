@@ -24,7 +24,7 @@ class GameMap:
         return " ".join(line)
 
     def show(self) -> None:
-        """Displays the game map and score in terminal"""
+        """Displays the game map in terminal"""
 
         for line in self.matrix:
             print(self._format_line(line))

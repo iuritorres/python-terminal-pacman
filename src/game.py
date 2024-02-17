@@ -6,19 +6,20 @@ from winsound import PlaySound, SND_FILENAME, SND_ASYNC
 from time import sleep
 from pacman import Pacman
 from game_map import GameMap
-from utils import Utils, TerminalColors
+from interface.score import Score
+from interface.sign_displayer import SignDisplayer, AvailableSigns
 
 
 class Game:
     """Main game class"""
 
-    _REQUIRED_SCORE = 5
+    _REQUIRED_SCORE = 3
 
     def __init__(self, pacman: Pacman, maps: list[GameMap]) -> None:
         self.pacman = pacman
         self.maps = maps
         self.current_map = self.maps[0]
-        self.score = 0
+        self.score = Score()
 
         self._build_game()
 
@@ -39,14 +40,6 @@ class Game:
             PlaySound("src\\sounds\\victory.wav", SND_FILENAME)
         else:
             PlaySound("src\\sounds\\pacman_death.wav", SND_FILENAME)
-
-    def _show_score(self) -> None:
-        """Print game score in terminal"""
-
-        print(Utils.colored_text("[PACMAN]", TerminalColors.YELLOW), end="")
-        print(" "*10, end="")
-        print(Utils.colored_text(f"[SCORE]: {self.score}",
-                                 TerminalColors.GREEN))
 
     def _main_loop(self):
         """Main game loop"""
@@ -83,7 +76,7 @@ class Game:
                 PlaySound("src\\sounds\\pacman_eatfruit.wav",
                           SND_FILENAME | SND_ASYNC)
 
-                self.score += 1
+                self.score.points += 1
 
                 if not self._did_win():
                     self.current_map.generate_fruit()
@@ -92,24 +85,26 @@ class Game:
         """Shows score and map in terminal"""
 
         system("cls")
-        self._show_score()
+        self.score.show()
         self.current_map.show()
 
     def _did_win(self) -> bool:
         """Returns if the required score has been reached"""
 
-        return self.score >= self._REQUIRED_SCORE
+        return self.score.points >= self._REQUIRED_SCORE
 
     def start(self) -> None:
         """Starts game"""
 
-        # LETRERO MASSA DO PACMAN ( TENTAR NE )
+        SignDisplayer.display(
+            sign=AvailableSigns.PACMAN,
+            sound="src\\sounds\\pacman_beginning.wav",
+            duration=0.027,
+        )
 
         self.current_map.generate_fruit()
         self.pacman.move()
         self._show_score_map()
-
-        PlaySound("src\\sounds\\pacman_beginning.wav", SND_FILENAME)
 
         self._main_loop()
 
