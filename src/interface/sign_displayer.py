@@ -7,6 +7,7 @@ import os
 from time import sleep
 from winsound import PlaySound, SND_FILENAME, SND_ASYNC
 from dataclasses import dataclass
+from utils import Utils, TerminalColors
 
 
 # pylint: disable=too-few-public-methods
@@ -24,7 +25,8 @@ class SignDisplayer:
         for index in range(line_size - 1):
             os.system('cls')
 
-            column = [line[:index + 1] for line in sign]
+            column = [Utils.colored_text(line[:index + 1], TerminalColors.YELLOW)
+                      for line in sign]
 
             print(str("\n".join(column)))
             sleep(duration)

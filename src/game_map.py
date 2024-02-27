@@ -3,6 +3,7 @@
 
 from random import randint
 from pacman import Pacman
+from utils import Utils, TerminalColors
 
 
 class GameMap:
@@ -35,7 +36,8 @@ class GameMap:
         index_line = randint(0, len(self.matrix) - 1)
         index_column = randint(0, len(self.matrix[0]) - 1)
 
-        self.matrix[index_line][index_column] = '♫'
+        self.matrix[index_line][index_column] = Utils.colored_text('♫',
+                                                                   TerminalColors.MAGENTA)
         self.fruit_position = {
             "x": index_column,
             "y": index_line
